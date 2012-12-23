@@ -1,5 +1,5 @@
 ROOTDIR=$(DESTDIR)
-PREFIX=/usr
+PREFIX=
 LIBDIR=$(PREFIX)/lib
 SBINDIR=/sbin
 SHAREDIR=/usr/share
