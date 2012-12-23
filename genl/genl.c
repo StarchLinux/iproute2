@@ -64,22 +64,8 @@ static struct genl_util *get_genl_kind(char *str)
 		if (strcmp(f->name, str) == 0)
 			return f;
 
-	snprintf(buf, sizeof(buf), "%s.so", str);
-	dlh = dlopen(buf, RTLD_LAZY);
-	if (dlh == NULL) {
-		dlh = BODY;
-		if (dlh == NULL) {
-			dlh = BODY = dlopen(NULL, RTLD_LAZY);
-			if (dlh == NULL)
-				goto noexist;
-		}
-	}
+        goto noexist;
 
-	snprintf(buf, sizeof(buf), "%s_genl_util", str);
-
-	f = dlsym(dlh, buf);
-	if (f == NULL)
-		goto noexist;
 reg:
 	f->next = genl_list;
 	genl_list = f;

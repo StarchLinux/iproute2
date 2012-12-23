@@ -101,22 +101,7 @@ struct qdisc_util *get_qdisc_kind(const char *str)
 		if (strcmp(q->id, str) == 0)
 			return q;
 
-	snprintf(buf, sizeof(buf), "%s/q_%s.so", get_tc_lib(), str);
-	dlh = dlopen(buf, RTLD_LAZY);
-	if (!dlh) {
-		/* look in current binary, only open once */
-		dlh = BODY;
-		if (dlh == NULL) {
-			dlh = BODY = dlopen(NULL, RTLD_LAZY);
-			if (dlh == NULL)
-				goto noexist;
-		}
-	}
-
-	snprintf(buf, sizeof(buf), "%s_qdisc_util", str);
-	q = dlsym(dlh, buf);
-	if (q == NULL)
-		goto noexist;
+	goto noexist;
 
 reg:
 	q->next = qdisc_list;
@@ -147,21 +132,7 @@ struct filter_util *get_filter_kind(const char *str)
 		if (strcmp(q->id, str) == 0)
 			return q;
 
-	snprintf(buf, sizeof(buf), "%s/f_%s.so", get_tc_lib(), str);
-	dlh = dlopen(buf, RTLD_LAZY);
-	if (dlh == NULL) {
-		dlh = BODY;
-		if (dlh == NULL) {
-			dlh = BODY = dlopen(NULL, RTLD_LAZY);
-			if (dlh == NULL)
-				goto noexist;
-		}
-	}
-
-	snprintf(buf, sizeof(buf), "%s_filter_util", str);
-	q = dlsym(dlh, buf);
-	if (q == NULL)
-		goto noexist;
+	goto noexist;
 
 reg:
 	q->next = filter_list;

@@ -86,21 +86,7 @@ struct m_pedit_util
 			return p;
 	}
 
-	snprintf(buf, sizeof(buf), "p_%s.so", str);
-	dlh = dlopen(buf, RTLD_LAZY);
-	if (dlh == NULL) {
-		dlh = pBODY;
-		if (dlh == NULL) {
-			dlh = pBODY = dlopen(NULL, RTLD_LAZY);
-			if (dlh == NULL)
-				goto noexist;
-		}
-	}
-
-	snprintf(buf, sizeof(buf), "p_pedit_%s", str);
-	p = dlsym(dlh, buf);
-	if (p == NULL)
-		goto noexist;
+	goto noexist;
 
 reg:
 	p->next = pedit_list;

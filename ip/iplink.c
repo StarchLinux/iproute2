@@ -113,26 +113,7 @@ struct link_util *get_link_kind(const char *id)
 		if (strcmp(l->id, id) == 0)
 			return l;
 
-	snprintf(buf, sizeof(buf), LIBDIR "/ip/link_%s.so", id);
-	dlh = dlopen(buf, RTLD_LAZY);
-	if (dlh == NULL) {
-		/* look in current binary, only open once */
-		dlh = BODY;
-		if (dlh == NULL) {
-			dlh = BODY = dlopen(NULL, RTLD_LAZY);
-			if (dlh == NULL)
-				return NULL;
-		}
-	}
-
-	snprintf(buf, sizeof(buf), "%s_link_util", id);
-	l = dlsym(dlh, buf);
-	if (l == NULL)
-		return NULL;
-
-	l->next = linkutil_list;
-	linkutil_list = l;
-	return l;
+        return 0;
 }
 
 int get_link_mode(const char *mode)

@@ -138,26 +138,7 @@ static struct ematch_util *get_ematch_kind(char *kind)
 			return e;
 	}
 
-	snprintf(buf, sizeof(buf), "em_%s.so", kind);
-	dlh = dlopen(buf, RTLD_LAZY);
-	if (dlh == NULL) {
-		dlh = body;
-		if (dlh == NULL) {
-			dlh = body = dlopen(NULL, RTLD_LAZY);
-			if (dlh == NULL)
-				return NULL;
-		}
-	}
-
-	snprintf(buf, sizeof(buf), "%s_ematch_util", kind);
-	e = dlsym(dlh, buf);
-	if (e == NULL)
-		return NULL;
-
-	e->next = ematch_list;
-	ematch_list = e;
-
-	return e;
+	return 0;
 }
 
 static struct ematch_util *get_ematch_kind_num(__u16 kind)
