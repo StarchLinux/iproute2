@@ -114,18 +114,11 @@ libtc.a: $(TCLIB)
 	$(AR) rcs $@ $(TCLIB)
 
 install: all
-	mkdir -p $(MODDESTDIR)
+	mkdir -p $(DESTDIR)$(LIBDIR)/tc
 	install -m 0755 tc $(DESTDIR)$(SBINDIR)
 	for i in $(TCSO); \
-	do install -m 755 $$i $(MODDESTDIR); \
+	do install -m 755 $$i $(DESTDIR)$(LIBDIR)/tc; \
 	done
-	if [ ! -f $(MODDESTDIR)/m_ipt.so ]; then \
-	if [ -f $(MODDESTDIR)/m_xt.so ]; \
-		then ln -s m_xt.so $(MODDESTDIR)/m_ipt.so ; \
-	elif [ -f $(MODDESTDIR)/m_xt_old.so ]; \
-		then ln -s m_xt_old.so $(MODDESTDIR)/m_ipt.so ; \
-	fi; \
-	fi
 
 clean:
 	rm -f $(TCOBJ) $(TCLIB) libtc.a tc *.so emp_ematch.yacc.h; \

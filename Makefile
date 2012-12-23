@@ -2,6 +2,7 @@ ROOTDIR=$(DESTDIR)
 PREFIX=/usr
 LIBDIR=$(PREFIX)/lib
 SBINDIR=/sbin
+SHAREDIR=/usr/share
 CONFDIR=/etc/iproute2
 DATADIR=$(PREFIX)/share
 DOCDIR=$(DATADIR)/doc/iproute2
